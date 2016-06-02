@@ -3,14 +3,13 @@
 -----------------------------------------------
 本人水平有限，有些地方没有封装好 请大家按照个人需求进行修改，欢迎提交代码
 演示：
-int  mPage=0;
+<hr/>
 
-        oncreate(){
 
                  mListViewAdapter = new MaintenanceListAdapter(mContext, mMainTenanceItems);
                  mListview.setAdapter(mListViewAdapter);
                  mListview.setloadMoreListener(this);
-        }
+        
         initDate(){
                  HashMap<String, String> params = new HashMap<>();
                  params.put("method", "Test");
