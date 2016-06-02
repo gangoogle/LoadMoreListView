@@ -5,34 +5,29 @@
 演示：
 int  mPage=0;
 
-oncreate(){
+        oncreate(){
 
-        mListViewAdapter = new MaintenanceListAdapter(mContext, mMainTenanceItems);
-        mListview.setAdapter(mListViewAdapter);
-        mListview.setloadMoreListener(this);
-}
-
-
-initDate(){
-  HashMap<String, String> params = new HashMap<>();
-        params.put("method", "Mobile_GetMaintenanceList");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("filterString", searchString);
-            jsonObject.put("stus", mCurrentFilterStatus);
-            jsonObject.put("startIndex", mPage);
-            jsonObject.put("pageSize", ConstantUtil.PAGE_SIZE);
-        } catch (JSONException e) {
-            e.printStackTrace();
+                 mListViewAdapter = new MaintenanceListAdapter(mContext, mMainTenanceItems);
+                 mListview.setAdapter(mListViewAdapter);
+                 mListview.setloadMoreListener(this);
         }
+        initDate(){
+                 HashMap<String, String> params = new HashMap<>();
+                 params.put("method", "Test");
+                 JSONObject jsonObject = new JSONObject();
+                 try {
+                    jsonObject.put("startIndex", mPage);
+                    jsonObject.put("pageSize", ConstantUtil.PAGE_SIZE);
+                 } catch (JSONException e) {
+                 e.printStackTrace();
+                 }
         params.put("reqBody", jsonObject.toString());
         CommonUtil.task = new AsyncNetUtil(mContext, "getMaintenanceList", false);
         CommonUtil.task.execute(params);
-  CommonUtil.task.setLoadDataComplete(new AsyncNetUtil.IsDataLoadedListener() {
+        CommonUtil.task.setLoadDataComplete(new AsyncNetUtil.IsDataLoadedListener() {
             @Override
             public void loadComplete(Object result) {
                 MaintenanceListResponse maintenanceListResponse = (MaintenanceListResponse) result;
-
                 if (maintenanceListResponse.errorCode == ConstantUtil.CODE_REQUEST_SUCCESS) {
                     if (maintenanceListResponse.mainTenanceItems != null && maintenanceListResponse.mainTenanceItems
                             .size() > 0) {
@@ -46,14 +41,11 @@ initDate(){
                     }
                 } else {
                     mListview.setError(maintenanceListResponse.errorDesc);
-
                 }
                 mListViewAdapter.notifyDataSetChanged();
                 mListview.flushFinish();
             }
         });
-
-    }
     }
 
     //回调
